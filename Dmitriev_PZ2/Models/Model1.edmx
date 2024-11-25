@@ -1,0 +1,1020 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище ProgMod_PZ4Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Act">
+          <Key>
+            <PropertyRef Name="Act_ID" />
+          </Key>
+          <Property Name="Act_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreationActDate" Type="date" Nullable="false" />
+          <Property Name="Text" Type="text" Nullable="false" />
+          <Property Name="AdditionalInfo" Type="text" />
+        </EntityType>
+        <EntityType Name="Agreement">
+          <Key>
+            <PropertyRef Name="Agreement_ID" />
+          </Key>
+          <Property Name="Agreement_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Client_ID" Type="int" Nullable="false" />
+          <Property Name="Object_ID" Type="int" Nullable="false" />
+          <Property Name="SigningDate" Type="date" Nullable="false" />
+          <Property Name="AdditionalInfo" Type="text" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Client_ID" />
+          </Key>
+          <Property Name="Client_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="FatherName" Type="varchar" MaxLength="20" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="AdditionalInfo" Type="text" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Employee_ID" />
+          </Key>
+          <Property Name="Employee_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_ID" Type="int" Nullable="false" />
+          <Property Name="EmployeePost_ID" Type="int" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="FatherName" Type="varchar" MaxLength="20" />
+          <Property Name="IdentificationNumber" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmployeePost">
+          <Key>
+            <PropertyRef Name="EmployeePost_ID" />
+          </Key>
+          <Property Name="EmployeePost_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Object">
+          <Key>
+            <PropertyRef Name="Object_ID" />
+          </Key>
+          <Property Name="Object_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Client_ID" Type="int" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FloorPlan" Type="image" Nullable="false" />
+          <Property Name="EntrancesQuantity" Type="int" Nullable="false" />
+          <Property Name="ExitsQuantity" Type="int" Nullable="false" />
+          <Property Name="WindowsLocation" Type="image" Nullable="false" />
+          <Property Name="AdditionalInfo" Type="text" />
+        </EntityType>
+        <EntityType Name="ObjectInspection">
+          <Key>
+            <PropertyRef Name="ObjectInspection_ID" />
+          </Key>
+          <Property Name="ObjectInspection_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Act_ID" Type="int" Nullable="false" />
+          <Property Name="TriggeringAlarm_ID" Type="int" Nullable="false" />
+          <Property Name="ResponsibePerson_ID" Type="int" Nullable="false" />
+          <Property Name="Employee_ID" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PoliceLeadership">
+          <Key>
+            <PropertyRef Name="PoliceLeadership_ID" />
+          </Key>
+          <Property Name="PoliceLeadership_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Report">
+          <Key>
+            <PropertyRef Name="Report_ID" />
+          </Key>
+          <Property Name="Report_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PoliceLeadership_ID" Type="int" Nullable="false" />
+          <Property Name="Text" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ResponsiblePerson">
+          <Key>
+            <PropertyRef Name="ResponsiblePerson_ID" />
+          </Key>
+          <Property Name="ResponsiblePerson_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ResponsiblePersonType_ID" Type="int" Nullable="false" />
+          <Property Name="Object_ID" Type="int" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="FatherName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="AdditionalInfo" Type="text" />
+        </EntityType>
+        <EntityType Name="ResponsiblePersonType">
+          <Key>
+            <PropertyRef Name="ResponsiblePersonType_ID" />
+          </Key>
+          <Property Name="ResponsiblePersonType_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TriggeringAlarm">
+          <Key>
+            <PropertyRef Name="TriggeringAlarm_ID" />
+          </Key>
+          <Property Name="TriggeringAlarm_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TriggeringAlarmType_ID" Type="int" Nullable="false" />
+          <Property Name="Object_ID" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TriggeringAlarmType">
+          <Key>
+            <PropertyRef Name="TriggeringAlarmType_ID" />
+          </Key>
+          <Property Name="TriggeringAlarmType_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="UserRole_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserRole_ID" />
+          </Key>
+          <Property Name="UserRole_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Agreement_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Agreement" Type="Self.Agreement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Client_ID" />
+            </Principal>
+            <Dependent Role="Agreement">
+              <PropertyRef Name="Client_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Agreement_Object">
+          <End Role="Object" Type="Self.Object" Multiplicity="1" />
+          <End Role="Agreement" Type="Self.Agreement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Object">
+              <PropertyRef Name="Object_ID" />
+            </Principal>
+            <Dependent Role="Agreement">
+              <PropertyRef Name="Object_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_EmployeePost">
+          <End Role="EmployeePost" Type="Self.EmployeePost" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeePost">
+              <PropertyRef Name="EmployeePost_ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="EmployeePost_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Object_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Object" Type="Self.Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Client_ID" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="Client_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObjectInspection_Act">
+          <End Role="Act" Type="Self.Act" Multiplicity="1" />
+          <End Role="ObjectInspection" Type="Self.ObjectInspection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Act">
+              <PropertyRef Name="Act_ID" />
+            </Principal>
+            <Dependent Role="ObjectInspection">
+              <PropertyRef Name="Act_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObjectInspection_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="ObjectInspection" Type="Self.ObjectInspection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="ObjectInspection">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObjectInspection_ResponsiblePerson">
+          <End Role="ResponsiblePerson" Type="Self.ResponsiblePerson" Multiplicity="1" />
+          <End Role="ObjectInspection" Type="Self.ObjectInspection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ResponsiblePerson">
+              <PropertyRef Name="ResponsiblePerson_ID" />
+            </Principal>
+            <Dependent Role="ObjectInspection">
+              <PropertyRef Name="ResponsibePerson_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObjectInspection_TriggeringAlarm">
+          <End Role="TriggeringAlarm" Type="Self.TriggeringAlarm" Multiplicity="1" />
+          <End Role="ObjectInspection" Type="Self.ObjectInspection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TriggeringAlarm">
+              <PropertyRef Name="TriggeringAlarm_ID" />
+            </Principal>
+            <Dependent Role="ObjectInspection">
+              <PropertyRef Name="TriggeringAlarm_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Report_PoliceLeadership">
+          <End Role="PoliceLeadership" Type="Self.PoliceLeadership" Multiplicity="1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PoliceLeadership">
+              <PropertyRef Name="PoliceLeadership_ID" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="PoliceLeadership_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ResponsiblePerson_Object">
+          <End Role="Object" Type="Self.Object" Multiplicity="1" />
+          <End Role="ResponsiblePerson" Type="Self.ResponsiblePerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Object">
+              <PropertyRef Name="Object_ID" />
+            </Principal>
+            <Dependent Role="ResponsiblePerson">
+              <PropertyRef Name="Object_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ResponsiblePerson_ResponsiblePersonType">
+          <End Role="ResponsiblePersonType" Type="Self.ResponsiblePersonType" Multiplicity="1" />
+          <End Role="ResponsiblePerson" Type="Self.ResponsiblePerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ResponsiblePersonType">
+              <PropertyRef Name="ResponsiblePersonType_ID" />
+            </Principal>
+            <Dependent Role="ResponsiblePerson">
+              <PropertyRef Name="ResponsiblePersonType_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TriggeringAlarm_TriggeringAlarmType">
+          <End Role="TriggeringAlarmType" Type="Self.TriggeringAlarmType" Multiplicity="1" />
+          <End Role="TriggeringAlarm" Type="Self.TriggeringAlarm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TriggeringAlarmType">
+              <PropertyRef Name="TriggeringAlarmType_ID" />
+            </Principal>
+            <Dependent Role="TriggeringAlarm">
+              <PropertyRef Name="TriggeringAlarmType_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_UserRole">
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRole">
+              <PropertyRef Name="UserRole_ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="UserRole_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ProgMod_PZ4ModelContainer">
+          <EntitySet Name="Act" EntityType="Self.Act" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Agreement" EntityType="Self.Agreement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeePost" EntityType="Self.EmployeePost" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Object" EntityType="Self.Object" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ObjectInspection" EntityType="Self.ObjectInspection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PoliceLeadership" EntityType="Self.PoliceLeadership" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Report" EntityType="Self.Report" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ResponsiblePerson" EntityType="Self.ResponsiblePerson" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ResponsiblePersonType" EntityType="Self.ResponsiblePersonType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TriggeringAlarm" EntityType="Self.TriggeringAlarm" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TriggeringAlarmType" EntityType="Self.TriggeringAlarmType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Agreement_Client" Association="Self.FK_Agreement_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Agreement" EntitySet="Agreement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Agreement_Object" Association="Self.FK_Agreement_Object">
+            <End Role="Object" EntitySet="Object" />
+            <End Role="Agreement" EntitySet="Agreement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_EmployeePost" Association="Self.FK_Employee_EmployeePost">
+            <End Role="EmployeePost" EntitySet="EmployeePost" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_User" Association="Self.FK_Employee_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Object_Client" Association="Self.FK_Object_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Object" EntitySet="Object" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObjectInspection_Act" Association="Self.FK_ObjectInspection_Act">
+            <End Role="Act" EntitySet="Act" />
+            <End Role="ObjectInspection" EntitySet="ObjectInspection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObjectInspection_Employee" Association="Self.FK_ObjectInspection_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="ObjectInspection" EntitySet="ObjectInspection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObjectInspection_ResponsiblePerson" Association="Self.FK_ObjectInspection_ResponsiblePerson">
+            <End Role="ResponsiblePerson" EntitySet="ResponsiblePerson" />
+            <End Role="ObjectInspection" EntitySet="ObjectInspection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObjectInspection_TriggeringAlarm" Association="Self.FK_ObjectInspection_TriggeringAlarm">
+            <End Role="TriggeringAlarm" EntitySet="TriggeringAlarm" />
+            <End Role="ObjectInspection" EntitySet="ObjectInspection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Report_PoliceLeadership" Association="Self.FK_Report_PoliceLeadership">
+            <End Role="PoliceLeadership" EntitySet="PoliceLeadership" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ResponsiblePerson_Object" Association="Self.FK_ResponsiblePerson_Object">
+            <End Role="Object" EntitySet="Object" />
+            <End Role="ResponsiblePerson" EntitySet="ResponsiblePerson" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ResponsiblePerson_ResponsiblePersonType" Association="Self.FK_ResponsiblePerson_ResponsiblePersonType">
+            <End Role="ResponsiblePersonType" EntitySet="ResponsiblePersonType" />
+            <End Role="ResponsiblePerson" EntitySet="ResponsiblePerson" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TriggeringAlarm_TriggeringAlarmType" Association="Self.FK_TriggeringAlarm_TriggeringAlarmType">
+            <End Role="TriggeringAlarmType" EntitySet="TriggeringAlarmType" />
+            <End Role="TriggeringAlarm" EntitySet="TriggeringAlarm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_UserRole" Association="Self.FK_User_UserRole">
+            <End Role="UserRole" EntitySet="UserRole" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProgMod_PZ4Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Act">
+          <Key>
+            <PropertyRef Name="Act_ID" />
+          </Key>
+          <Property Name="Act_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreationActDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AdditionalInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ObjectInspection" Relationship="Self.FK_ObjectInspection_Act" FromRole="Act" ToRole="ObjectInspection" />
+        </EntityType>
+        <EntityType Name="Agreement">
+          <Key>
+            <PropertyRef Name="Agreement_ID" />
+          </Key>
+          <Property Name="Agreement_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Client_ID" Type="Int32" Nullable="false" />
+          <Property Name="Object_ID" Type="Int32" Nullable="false" />
+          <Property Name="SigningDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="AdditionalInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Agreement_Client" FromRole="Agreement" ToRole="Client" />
+          <NavigationProperty Name="Object" Relationship="Self.FK_Agreement_Object" FromRole="Agreement" ToRole="Object" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Client_ID" />
+          </Key>
+          <Property Name="Client_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FatherName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AdditionalInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Agreement" Relationship="Self.FK_Agreement_Client" FromRole="Client" ToRole="Agreement" />
+          <NavigationProperty Name="Object" Relationship="Self.FK_Object_Client" FromRole="Client" ToRole="Object" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Employee_ID" />
+          </Key>
+          <Property Name="Employee_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="EmployeePost_ID" Type="Int32" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FatherName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IdentificationNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="EmployeePost" Relationship="Self.FK_Employee_EmployeePost" FromRole="Employee" ToRole="EmployeePost" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Employee_User" FromRole="Employee" ToRole="User" />
+          <NavigationProperty Name="ObjectInspection" Relationship="Self.FK_ObjectInspection_Employee" FromRole="Employee" ToRole="ObjectInspection" />
+        </EntityType>
+        <EntityType Name="EmployeePost">
+          <Key>
+            <PropertyRef Name="EmployeePost_ID" />
+          </Key>
+          <Property Name="EmployeePost_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_EmployeePost" FromRole="EmployeePost" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Object">
+          <Key>
+            <PropertyRef Name="Object_ID" />
+          </Key>
+          <Property Name="Object_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Client_ID" Type="Int32" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FloorPlan" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="EntrancesQuantity" Type="Int32" Nullable="false" />
+          <Property Name="ExitsQuantity" Type="Int32" Nullable="false" />
+          <Property Name="WindowsLocation" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="AdditionalInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Agreement" Relationship="Self.FK_Agreement_Object" FromRole="Object" ToRole="Agreement" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Object_Client" FromRole="Object" ToRole="Client" />
+          <NavigationProperty Name="ResponsiblePerson" Relationship="Self.FK_ResponsiblePerson_Object" FromRole="Object" ToRole="ResponsiblePerson" />
+        </EntityType>
+        <EntityType Name="ObjectInspection">
+          <Key>
+            <PropertyRef Name="ObjectInspection_ID" />
+          </Key>
+          <Property Name="ObjectInspection_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Act_ID" Type="Int32" Nullable="false" />
+          <Property Name="TriggeringAlarm_ID" Type="Int32" Nullable="false" />
+          <Property Name="ResponsibePerson_ID" Type="Int32" Nullable="false" />
+          <Property Name="Employee_ID" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Act" Relationship="Self.FK_ObjectInspection_Act" FromRole="ObjectInspection" ToRole="Act" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_ObjectInspection_Employee" FromRole="ObjectInspection" ToRole="Employee" />
+          <NavigationProperty Name="ResponsiblePerson" Relationship="Self.FK_ObjectInspection_ResponsiblePerson" FromRole="ObjectInspection" ToRole="ResponsiblePerson" />
+          <NavigationProperty Name="TriggeringAlarm" Relationship="Self.FK_ObjectInspection_TriggeringAlarm" FromRole="ObjectInspection" ToRole="TriggeringAlarm" />
+        </EntityType>
+        <EntityType Name="PoliceLeadership">
+          <Key>
+            <PropertyRef Name="PoliceLeadership_ID" />
+          </Key>
+          <Property Name="PoliceLeadership_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Report" Relationship="Self.FK_Report_PoliceLeadership" FromRole="PoliceLeadership" ToRole="Report" />
+        </EntityType>
+        <EntityType Name="Report">
+          <Key>
+            <PropertyRef Name="Report_ID" />
+          </Key>
+          <Property Name="Report_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PoliceLeadership_ID" Type="Int32" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PoliceLeadership" Relationship="Self.FK_Report_PoliceLeadership" FromRole="Report" ToRole="PoliceLeadership" />
+        </EntityType>
+        <EntityType Name="ResponsiblePerson">
+          <Key>
+            <PropertyRef Name="ResponsiblePerson_ID" />
+          </Key>
+          <Property Name="ResponsiblePerson_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ResponsiblePersonType_ID" Type="Int32" Nullable="false" />
+          <Property Name="Object_ID" Type="Int32" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FatherName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AdditionalInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Object" Relationship="Self.FK_ResponsiblePerson_Object" FromRole="ResponsiblePerson" ToRole="Object" />
+          <NavigationProperty Name="ObjectInspection" Relationship="Self.FK_ObjectInspection_ResponsiblePerson" FromRole="ResponsiblePerson" ToRole="ObjectInspection" />
+          <NavigationProperty Name="ResponsiblePersonType" Relationship="Self.FK_ResponsiblePerson_ResponsiblePersonType" FromRole="ResponsiblePerson" ToRole="ResponsiblePersonType" />
+        </EntityType>
+        <EntityType Name="ResponsiblePersonType">
+          <Key>
+            <PropertyRef Name="ResponsiblePersonType_ID" />
+          </Key>
+          <Property Name="ResponsiblePersonType_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ResponsiblePerson" Relationship="Self.FK_ResponsiblePerson_ResponsiblePersonType" FromRole="ResponsiblePersonType" ToRole="ResponsiblePerson" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TriggeringAlarm">
+          <Key>
+            <PropertyRef Name="TriggeringAlarm_ID" />
+          </Key>
+          <Property Name="TriggeringAlarm_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TriggeringAlarmType_ID" Type="Int32" Nullable="false" />
+          <Property Name="Object_ID" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="ObjectInspection" Relationship="Self.FK_ObjectInspection_TriggeringAlarm" FromRole="TriggeringAlarm" ToRole="ObjectInspection" />
+          <NavigationProperty Name="TriggeringAlarmType" Relationship="Self.FK_TriggeringAlarm_TriggeringAlarmType" FromRole="TriggeringAlarm" ToRole="TriggeringAlarmType" />
+        </EntityType>
+        <EntityType Name="TriggeringAlarmType">
+          <Key>
+            <PropertyRef Name="TriggeringAlarmType_ID" />
+          </Key>
+          <Property Name="TriggeringAlarmType_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TriggeringAlarm" Relationship="Self.FK_TriggeringAlarm_TriggeringAlarmType" FromRole="TriggeringAlarmType" ToRole="TriggeringAlarm" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserRole_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_User" FromRole="User" ToRole="Employee" />
+          <NavigationProperty Name="UserRole" Relationship="Self.FK_User_UserRole" FromRole="User" ToRole="UserRole" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserRole_ID" />
+          </Key>
+          <Property Name="UserRole_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_UserRole" FromRole="UserRole" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_ObjectInspection_Act">
+          <End Role="Act" Type="Self.Act" Multiplicity="1" />
+          <End Role="ObjectInspection" Type="Self.ObjectInspection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Act">
+              <PropertyRef Name="Act_ID" />
+            </Principal>
+            <Dependent Role="ObjectInspection">
+              <PropertyRef Name="Act_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Agreement_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Agreement" Type="Self.Agreement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Client_ID" />
+            </Principal>
+            <Dependent Role="Agreement">
+              <PropertyRef Name="Client_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Agreement_Object">
+          <End Role="Object" Type="Self.Object" Multiplicity="1" />
+          <End Role="Agreement" Type="Self.Agreement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Object">
+              <PropertyRef Name="Object_ID" />
+            </Principal>
+            <Dependent Role="Agreement">
+              <PropertyRef Name="Object_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Object_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Object" Type="Self.Object" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Client_ID" />
+            </Principal>
+            <Dependent Role="Object">
+              <PropertyRef Name="Client_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_EmployeePost">
+          <End Role="EmployeePost" Type="Self.EmployeePost" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeePost">
+              <PropertyRef Name="EmployeePost_ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="EmployeePost_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObjectInspection_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="ObjectInspection" Type="Self.ObjectInspection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="ObjectInspection">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ResponsiblePerson_Object">
+          <End Role="Object" Type="Self.Object" Multiplicity="1" />
+          <End Role="ResponsiblePerson" Type="Self.ResponsiblePerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Object">
+              <PropertyRef Name="Object_ID" />
+            </Principal>
+            <Dependent Role="ResponsiblePerson">
+              <PropertyRef Name="Object_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObjectInspection_ResponsiblePerson">
+          <End Role="ResponsiblePerson" Type="Self.ResponsiblePerson" Multiplicity="1" />
+          <End Role="ObjectInspection" Type="Self.ObjectInspection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ResponsiblePerson">
+              <PropertyRef Name="ResponsiblePerson_ID" />
+            </Principal>
+            <Dependent Role="ObjectInspection">
+              <PropertyRef Name="ResponsibePerson_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObjectInspection_TriggeringAlarm">
+          <End Role="TriggeringAlarm" Type="Self.TriggeringAlarm" Multiplicity="1" />
+          <End Role="ObjectInspection" Type="Self.ObjectInspection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TriggeringAlarm">
+              <PropertyRef Name="TriggeringAlarm_ID" />
+            </Principal>
+            <Dependent Role="ObjectInspection">
+              <PropertyRef Name="TriggeringAlarm_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Report_PoliceLeadership">
+          <End Role="PoliceLeadership" Type="Self.PoliceLeadership" Multiplicity="1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PoliceLeadership">
+              <PropertyRef Name="PoliceLeadership_ID" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="PoliceLeadership_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ResponsiblePerson_ResponsiblePersonType">
+          <End Role="ResponsiblePersonType" Type="Self.ResponsiblePersonType" Multiplicity="1" />
+          <End Role="ResponsiblePerson" Type="Self.ResponsiblePerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ResponsiblePersonType">
+              <PropertyRef Name="ResponsiblePersonType_ID" />
+            </Principal>
+            <Dependent Role="ResponsiblePerson">
+              <PropertyRef Name="ResponsiblePersonType_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TriggeringAlarm_TriggeringAlarmType">
+          <End Role="TriggeringAlarmType" Type="Self.TriggeringAlarmType" Multiplicity="1" />
+          <End Role="TriggeringAlarm" Type="Self.TriggeringAlarm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TriggeringAlarmType">
+              <PropertyRef Name="TriggeringAlarmType_ID" />
+            </Principal>
+            <Dependent Role="TriggeringAlarm">
+              <PropertyRef Name="TriggeringAlarmType_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_UserRole">
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRole">
+              <PropertyRef Name="UserRole_ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="UserRole_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProgMod_PZ4Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Act" EntityType="Self.Act" />
+          <EntitySet Name="Agreement" EntityType="Self.Agreement" />
+          <EntitySet Name="Client" EntityType="Self.Client" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" />
+          <EntitySet Name="EmployeePost" EntityType="Self.EmployeePost" />
+          <EntitySet Name="Object" EntityType="Self.Object" />
+          <EntitySet Name="ObjectInspection" EntityType="Self.ObjectInspection" />
+          <EntitySet Name="PoliceLeadership" EntityType="Self.PoliceLeadership" />
+          <EntitySet Name="Report" EntityType="Self.Report" />
+          <EntitySet Name="ResponsiblePerson" EntityType="Self.ResponsiblePerson" />
+          <EntitySet Name="ResponsiblePersonType" EntityType="Self.ResponsiblePersonType" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TriggeringAlarm" EntityType="Self.TriggeringAlarm" />
+          <EntitySet Name="TriggeringAlarmType" EntityType="Self.TriggeringAlarmType" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" />
+          <AssociationSet Name="FK_ObjectInspection_Act" Association="Self.FK_ObjectInspection_Act">
+            <End Role="Act" EntitySet="Act" />
+            <End Role="ObjectInspection" EntitySet="ObjectInspection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Agreement_Client" Association="Self.FK_Agreement_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Agreement" EntitySet="Agreement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Agreement_Object" Association="Self.FK_Agreement_Object">
+            <End Role="Object" EntitySet="Object" />
+            <End Role="Agreement" EntitySet="Agreement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Object_Client" Association="Self.FK_Object_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Object" EntitySet="Object" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_EmployeePost" Association="Self.FK_Employee_EmployeePost">
+            <End Role="EmployeePost" EntitySet="EmployeePost" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_User" Association="Self.FK_Employee_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObjectInspection_Employee" Association="Self.FK_ObjectInspection_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="ObjectInspection" EntitySet="ObjectInspection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ResponsiblePerson_Object" Association="Self.FK_ResponsiblePerson_Object">
+            <End Role="Object" EntitySet="Object" />
+            <End Role="ResponsiblePerson" EntitySet="ResponsiblePerson" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObjectInspection_ResponsiblePerson" Association="Self.FK_ObjectInspection_ResponsiblePerson">
+            <End Role="ResponsiblePerson" EntitySet="ResponsiblePerson" />
+            <End Role="ObjectInspection" EntitySet="ObjectInspection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObjectInspection_TriggeringAlarm" Association="Self.FK_ObjectInspection_TriggeringAlarm">
+            <End Role="TriggeringAlarm" EntitySet="TriggeringAlarm" />
+            <End Role="ObjectInspection" EntitySet="ObjectInspection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Report_PoliceLeadership" Association="Self.FK_Report_PoliceLeadership">
+            <End Role="PoliceLeadership" EntitySet="PoliceLeadership" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ResponsiblePerson_ResponsiblePersonType" Association="Self.FK_ResponsiblePerson_ResponsiblePersonType">
+            <End Role="ResponsiblePersonType" EntitySet="ResponsiblePersonType" />
+            <End Role="ResponsiblePerson" EntitySet="ResponsiblePerson" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TriggeringAlarm_TriggeringAlarmType" Association="Self.FK_TriggeringAlarm_TriggeringAlarmType">
+            <End Role="TriggeringAlarmType" EntitySet="TriggeringAlarmType" />
+            <End Role="TriggeringAlarm" EntitySet="TriggeringAlarm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_UserRole" Association="Self.FK_User_UserRole">
+            <End Role="UserRole" EntitySet="UserRole" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ProgMod_PZ4ModelContainer" CdmEntityContainer="ProgMod_PZ4Entities">
+          <EntitySetMapping Name="Act">
+            <EntityTypeMapping TypeName="ProgMod_PZ4Model.Act">
+              <MappingFragment StoreEntitySet="Act">
+                <ScalarProperty Name="Act_ID" ColumnName="Act_ID" />
+                <ScalarProperty Name="CreationActDate" ColumnName="CreationActDate" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="AdditionalInfo" ColumnName="AdditionalInfo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Agreement">
+            <EntityTypeMapping TypeName="ProgMod_PZ4Model.Agreement">
+              <MappingFragment StoreEntitySet="Agreement">
+                <ScalarProperty Name="Agreement_ID" ColumnName="Agreement_ID" />
+                <ScalarProperty Name="Client_ID" ColumnName="Client_ID" />
+                <ScalarProperty Name="Object_ID" ColumnName="Object_ID" />
+                <ScalarProperty Name="SigningDate" ColumnName="SigningDate" />
+                <ScalarProperty Name="AdditionalInfo" ColumnName="AdditionalInfo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="ProgMod_PZ4Model.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="Client_ID" ColumnName="Client_ID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="AdditionalInfo" ColumnName="AdditionalInfo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee">
+            <EntityTypeMapping TypeName="ProgMod_PZ4Model.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="EmployeePost_ID" ColumnName="EmployeePost_ID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="IdentificationNumber" ColumnName="IdentificationNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeePost">
+            <EntityTypeMapping TypeName="ProgMod_PZ4Model.EmployeePost">
+              <MappingFragment StoreEntitySet="EmployeePost">
+                <ScalarProperty Name="EmployeePost_ID" ColumnName="EmployeePost_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Object">
+            <EntityTypeMapping TypeName="ProgMod_PZ4Model.Object">
+              <MappingFragment StoreEntitySet="Object">
+                <ScalarProperty Name="Object_ID" ColumnName="Object_ID" />
+                <ScalarProperty Name="Client_ID" ColumnName="Client_ID" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="FloorPlan" ColumnName="FloorPlan" />
+                <ScalarProperty Name="EntrancesQuantity" ColumnName="EntrancesQuantity" />
+                <ScalarProperty Name="ExitsQuantity" ColumnName="ExitsQuantity" />
+                <ScalarProperty Name="WindowsLocation" ColumnName="WindowsLocation" />
+                <ScalarProperty Name="AdditionalInfo" ColumnName="AdditionalInfo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ObjectInspection">
+            <EntityTypeMapping TypeName="ProgMod_PZ4Model.ObjectInspection">
+              <MappingFragment StoreEntitySet="ObjectInspection">
+                <ScalarProperty Name="ObjectInspection_ID" ColumnName="ObjectInspection_ID" />
+                <ScalarProperty Name="Act_ID" ColumnName="Act_ID" />
+                <ScalarProperty Name="TriggeringAlarm_ID" ColumnName="TriggeringAlarm_ID" />
+                <ScalarProperty Name="ResponsibePerson_ID" ColumnName="ResponsibePerson_ID" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PoliceLeadership">
+            <EntityTypeMapping TypeName="ProgMod_PZ4Model.PoliceLeadership">
+              <MappingFragment StoreEntitySet="PoliceLeadership">
+                <ScalarProperty Name="PoliceLeadership_ID" ColumnName="PoliceLeadership_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Report">
+            <EntityTypeMapping TypeName="ProgMod_PZ4Model.Report">
+              <MappingFragment StoreEntitySet="Report">
+                <ScalarProperty Name="Report_ID" ColumnName="Report_ID" />
+                <ScalarProperty Name="PoliceLeadership_ID" ColumnName="PoliceLeadership_ID" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ResponsiblePerson">
+            <EntityTypeMapping TypeName="ProgMod_PZ4Model.ResponsiblePerson">
+              <MappingFragment StoreEntitySet="ResponsiblePerson">
+                <ScalarProperty Name="ResponsiblePerson_ID" ColumnName="ResponsiblePerson_ID" />
+                <ScalarProperty Name="ResponsiblePersonType_ID" ColumnName="ResponsiblePersonType_ID" />
+                <ScalarProperty Name="Object_ID" ColumnName="Object_ID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="AdditionalInfo" ColumnName="AdditionalInfo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ResponsiblePersonType">
+            <EntityTypeMapping TypeName="ProgMod_PZ4Model.ResponsiblePersonType">
+              <MappingFragment StoreEntitySet="ResponsiblePersonType">
+                <ScalarProperty Name="ResponsiblePersonType_ID" ColumnName="ResponsiblePersonType_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ProgMod_PZ4Model.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TriggeringAlarm">
+            <EntityTypeMapping TypeName="ProgMod_PZ4Model.TriggeringAlarm">
+              <MappingFragment StoreEntitySet="TriggeringAlarm">
+                <ScalarProperty Name="TriggeringAlarm_ID" ColumnName="TriggeringAlarm_ID" />
+                <ScalarProperty Name="TriggeringAlarmType_ID" ColumnName="TriggeringAlarmType_ID" />
+                <ScalarProperty Name="Object_ID" ColumnName="Object_ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TriggeringAlarmType">
+            <EntityTypeMapping TypeName="ProgMod_PZ4Model.TriggeringAlarmType">
+              <MappingFragment StoreEntitySet="TriggeringAlarmType">
+                <ScalarProperty Name="TriggeringAlarmType_ID" ColumnName="TriggeringAlarmType_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="ProgMod_PZ4Model.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserRole_ID" ColumnName="UserRole_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRole">
+            <EntityTypeMapping TypeName="ProgMod_PZ4Model.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="UserRole_ID" ColumnName="UserRole_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
