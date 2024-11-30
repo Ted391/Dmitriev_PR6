@@ -1,19 +1,12 @@
 ﻿using Dmitriev_PZ2.Services;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Threading;
 using Dmitriev_PZ2.Models;
+using System.Windows.Threading;
 
 namespace Dmitriev_PZ2.Pages
 {
@@ -23,16 +16,26 @@ namespace Dmitriev_PZ2.Pages
     public partial class Autho : Page
     {
         int click;
+        int failedAuthorizationCount; // Счётчик неудачных попыток авторизации
+
+        DispatcherTimer timer;
+        int timerDuration;
+
         public Autho()
         {
             InitializeComponent();
             click = 0;
+            failedAuthorizationCount = 0;
+
+            timerDuration = 10;
+            timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(1),
+            };
+            timer.Tick += new EventHandler(timerTick);
         }
 
-        private void btnEnterGuests_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new Client(null, null));
-        }
+        // Метод-процедура для генерации капчи
         private void GenerateCapctcha()
         {
             txtboxCaptcha.Visibility = Visibility.Visible;
@@ -43,6 +46,83 @@ namespace Dmitriev_PZ2.Pages
             txtBlockCaptcha.TextDecorations = TextDecorations.Strikethrough;
         }
 
+        // Метод-процедура для изменения GUI при успешной авторизации
+        private void successfulAuthorization()
+        {
+            txtBlockFailedAuthorizationCount.Visibility = Visibility.Hidden;
+            failedAuthorizationCount = 0;
+
+            txtbLogin.Text = "";
+            pswbPassword.Password = "";
+
+            txtboxCaptcha.Text = "";
+            txtBlockCaptcha.Visibility = Visibility.Hidden;
+            txtboxCaptcha.Visibility = Visibility.Hidden;
+        }
+
+        // Метод-процедура для изменения GUI при неудачной авторизации
+        private void failedAuthorization()
+        {
+            timerDuration = 10;
+            txtBlockFailedAuthorizationCount.Visibility = Visibility.Visible;
+            failedAuthorizationCount += 1;
+            txtBlockFailedAuthorizationCount.Text = $"Количество неудачных попыток: {failedAuthorizationCount}";
+
+            GenerateCapctcha();
+
+            pswbPassword.Password = "";
+            txtboxCaptcha.Text = "";
+            if (failedAuthorizationCount >= 3)
+            {
+                temporarilyBlockedAuthorization();
+            }
+        }
+
+        // Метод-процедура для блокирования GUI на 10 секунд после трёх неудачных попыток
+        private void temporarilyBlockedAuthorization()
+        {
+            txtbLogin.IsEnabled = false;
+            pswbPassword.IsEnabled = false;
+            txtboxCaptcha.IsEnabled = false;
+            btnEnter.IsEnabled = false;
+
+            txtBlockTimer.Visibility = Visibility.Visible;
+            timer.Start();
+        }
+
+        // Метод-процедура для разблокирования GUI по истечении 10 секунд после его блокировки
+        private void unblockAuthorization()
+        {
+            txtbLogin.IsEnabled = true;
+            pswbPassword.IsEnabled = true;
+            txtboxCaptcha.IsEnabled = true;
+            btnEnter.IsEnabled = true;
+
+            txtBlockTimer.Visibility = Visibility.Collapsed;
+            timer.Stop();
+        }
+
+
+
+        // Обработчики событий
+        private void timerTick(object sender, EventArgs e)
+        {
+            if (timerDuration <= 0)
+            {
+                unblockAuthorization();
+                txtBlockTimer.Text = $"До разблокировки осталось 10 секунд";
+            }
+            else
+            {
+                txtBlockTimer.Text = $"До разблокировки осталось {timerDuration} секунд";
+            }
+            timerDuration--;
+        }
+
+        private void btnEnterGuests_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Client(null, null));
+        }
 
         private void btnEnter_Click(object sender, RoutedEventArgs e)
         {
@@ -54,25 +134,21 @@ namespace Dmitriev_PZ2.Pages
             
             var db = Helper.GetContext();
 
-            var user = db.User.Where(x => x.Login == login && x.Password == hashedPassword).FirstOrDefault();
+            var user = db.User.Where(x => x.Login == login && x.Password == hashedPassword).FirstOrDefault(); // после выполнения заменить password на hashedPassword, а во время выполнения - hashedPassword на password
             if (click == 1)
             {
                 if (user != null)
                 {
                     MessageBox.Show("Вы вошли под: " + user.UserRole.Name.ToString());
                     LoadPage(user.UserRole.Name.ToString(), user);
-                    txtbLogin.Text = "";
-                    pswbPassword.Password = "";
-                    txtboxCaptcha.Text = "";
-                    txtBlockCaptcha.Visibility = Visibility.Hidden;
-                    txtboxCaptcha.Visibility = Visibility.Hidden;
+
+                    successfulAuthorization();
                 }
                 else
                 {
                     MessageBox.Show("Вы ввели логин или пароль неверно!");
-                    GenerateCapctcha();
-                    pswbPassword.Password = "";
-                    txtboxCaptcha.Text = "";
+
+                    failedAuthorization();
                 }
             }
             else if (click > 1)
@@ -81,18 +157,14 @@ namespace Dmitriev_PZ2.Pages
                 {
                     MessageBox.Show("Вы вошли под: " + user.UserRole.Name.ToString());
                     LoadPage(user.UserRole.Name.ToString(), user);
-                    txtbLogin.Text = "";
-                    pswbPassword.Password = "";
-                    txtboxCaptcha.Text = "";
-                    txtBlockCaptcha.Visibility = Visibility.Hidden;
-                    txtboxCaptcha.Visibility = Visibility.Hidden;
+
+                    successfulAuthorization();
                 }
                 else
                 {
                     MessageBox.Show($"Введите данные заново!\nВы ввели: {txtboxCaptcha.Text}\nПравильный ответ: {txtBlockCaptcha.Text}");
-                    GenerateCapctcha();
-                    pswbPassword.Password = "";
-                    txtboxCaptcha.Text = "";
+
+                    failedAuthorization();
                 }
             }
         }
