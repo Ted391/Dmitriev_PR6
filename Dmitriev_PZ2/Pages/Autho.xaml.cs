@@ -102,7 +102,55 @@ namespace Dmitriev_PZ2.Pages
             timer.Stop();
         }
 
+        // Метод-функция для вывода приветственного сообщения в формате "Доброе утро/день/вечер, <Имя> <Фамилия>"
+        public string printGreetingMessage(User user)
+        {
+            TimeSpan now = DateTime.Now.TimeOfDay;
+            string greeting;
+            int gender = Convert.ToInt32(user.Gender);
+            string genderChoice;
+            string name;
 
+            if (now >= TimeSpan.FromHours(10) && now <= TimeSpan.FromHours(12))
+            {
+                greeting = "Доброе утро";
+            }
+            else if (now > TimeSpan.FromHours(12) && now <= TimeSpan.FromHours(17))
+            {
+                greeting = "Добрый день";
+            }
+            else if (now > TimeSpan.FromHours(17) && now <= TimeSpan.FromHours(19))
+            {
+                greeting = "Добрый вечер";
+            }
+            else
+            {
+                greeting = "Здравствуйте";
+            }
+
+            switch (gender)
+            {
+                case 1:
+                    genderChoice = "Mr";
+                    break;
+                case 2:
+                    genderChoice = "Mrs";
+                    break;
+                default:
+                    genderChoice = "<Unknown gender>";
+                    break;
+            }
+            name = user.FirstName.ToString();
+
+            return $"{greeting}, {genderChoice} {name}";
+        }
+
+        // Метод-функция для определения условия нахождения в интервале рабочего времени
+        public bool InWorkingTime()
+        {
+            TimeSpan now = DateTime.Now.TimeOfDay;
+            return now >= TimeSpan.FromHours(10) && now <= TimeSpan.FromHours(19);
+        }
 
         // Обработчики событий
         private void timerTick(object sender, EventArgs e)
@@ -130,41 +178,50 @@ namespace Dmitriev_PZ2.Pages
             string login = txtbLogin.Text.Trim();
             string password = pswbPassword.Password.Trim();
             string hashedPassword = Hash.HashPassword(password);
+            bool inWorkingTime = InWorkingTime();
 
-            
             var db = Helper.GetContext();
 
             var user = db.User.Where(x => x.Login == login && x.Password == hashedPassword).FirstOrDefault(); // после выполнения заменить password на hashedPassword, а во время выполнения - hashedPassword на password
-            if (click == 1)
+
+            if (!inWorkingTime)
             {
-                if (user != null)
-                {
-                    MessageBox.Show("Вы вошли под: " + user.UserRole.Name.ToString());
-                    LoadPage(user.UserRole.Name.ToString(), user);
-
-                    successfulAuthorization();
-                }
-                else
-                {
-                    MessageBox.Show("Вы ввели логин или пароль неверно!");
-
-                    failedAuthorization();
-                }
+                MessageBox.Show("Доступ запрещен. Рабочее время с 10:00 до 19:00.", "Ошибка доступа");
             }
-            else if (click > 1)
+
+            else
             {
-                if (user != null && txtboxCaptcha.Text == txtBlockCaptcha.Text)
+                if (click == 1)
                 {
-                    MessageBox.Show("Вы вошли под: " + user.UserRole.Name.ToString());
-                    LoadPage(user.UserRole.Name.ToString(), user);
+                    if (user != null)
+                    {
+                        MessageBox.Show("Вы вошли под: " + user.UserRole.Name.ToString());
+                        LoadPage(user.UserRole.Name.ToString(), user);
 
-                    successfulAuthorization();
+                        successfulAuthorization();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Вы ввели логин или пароль неверно!");
+
+                        failedAuthorization();
+                    }
                 }
-                else
+                else if (click > 1)
                 {
-                    MessageBox.Show($"Введите данные заново!\nВы ввели: {txtboxCaptcha.Text}\nПравильный ответ: {txtBlockCaptcha.Text}");
+                    if (user != null && txtboxCaptcha.Text == txtBlockCaptcha.Text)
+                    {
+                        MessageBox.Show("Вы вошли под: " + user.UserRole.Name.ToString());
+                        LoadPage(user.UserRole.Name.ToString(), user);
 
-                    failedAuthorization();
+                        successfulAuthorization();
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Введите данные заново!\nВы ввели: {txtboxCaptcha.Text}\nПравильный ответ: {txtBlockCaptcha.Text}");
+
+                        failedAuthorization();
+                    }
                 }
             }
         }

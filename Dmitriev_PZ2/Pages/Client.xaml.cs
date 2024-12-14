@@ -1,5 +1,5 @@
-﻿using System.Windows.Controls;
-using Dmitriev_PZ2.Models;
+﻿using Dmitriev_PZ2.Models;
+using System.Windows.Controls;
 
 namespace Dmitriev_PZ2.Pages
 {
@@ -8,11 +8,12 @@ namespace Dmitriev_PZ2.Pages
     /// </summary>
     public partial class Client : Page
     {
+        Autho autho = new Autho();
         public Client(User user, string role)
         {
             InitializeComponent();
             lbl_Role.Content = role;
-            lbl_WelcomeMessage.Content = $"Добро пожаловать, {user.Login}";
+            lbl_WelcomeMessage.Content = autho.printGreetingMessage(user);
         }
     }
 }

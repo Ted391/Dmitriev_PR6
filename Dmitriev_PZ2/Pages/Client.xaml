@@ -11,6 +11,5 @@
     <Grid>
         <Label x:Name="lbl_Role" Content="Label" HorizontalAlignment="Center" Margin="0,30,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lbl_WelcomeMessage" Content="Label" HorizontalAlignment="Center" Margin="0,89,0,0" VerticalAlignment="Top"/>
-
     </Grid>
 </Page>

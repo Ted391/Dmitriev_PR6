@@ -144,9 +144,11 @@
             <PropertyRef Name="User_ID" />
           </Key>
           <Property Name="User_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserRole_ID" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="256" Nullable="false" />
-          <Property Name="UserRole_ID" Type="int" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="1" Nullable="false" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -566,9 +568,11 @@
             <PropertyRef Name="User_ID" />
           </Key>
           <Property Name="User_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserRole_ID" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserRole_ID" Type="Int32" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_User" FromRole="User" ToRole="Employee" />
           <NavigationProperty Name="UserRole" Relationship="Self.FK_User_UserRole" FromRole="User" ToRole="UserRole" />
         </EntityType>
@@ -980,9 +984,11 @@
             <EntityTypeMapping TypeName="ProgMod_PZ4Model.User">
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="UserRole_ID" ColumnName="UserRole_ID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="UserRole_ID" ColumnName="UserRole_ID" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
