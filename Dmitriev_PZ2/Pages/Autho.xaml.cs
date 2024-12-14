@@ -146,7 +146,7 @@ namespace Dmitriev_PZ2.Pages
         }
 
         // Метод-функция для определения условия нахождения в интервале рабочего времени
-        public bool InWorkingTime()
+        public bool InWorkingTime() 
         {
             TimeSpan now = DateTime.Now.TimeOfDay;
             return now >= TimeSpan.FromHours(10) && now <= TimeSpan.FromHours(19);
