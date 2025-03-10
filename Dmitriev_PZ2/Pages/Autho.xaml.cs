@@ -7,14 +7,16 @@ using System.Windows.Navigation;
 using System.Threading;
 using Dmitriev_PZ2.Models;
 using System.Windows.Threading;
+using System.Windows.Input;
 
 namespace Dmitriev_PZ2.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для Autho.xaml
+    /// Логика страницы авторизации
     /// </summary>
     public partial class Autho : Page
     {
+        ProgMod_PZ4Entities db = Helper.GetContext();
         int click;
         int failedAuthorizationCount; // Счётчик неудачных попыток авторизации
 
@@ -107,9 +109,7 @@ namespace Dmitriev_PZ2.Pages
         {
             TimeSpan now = DateTime.Now.TimeOfDay;
             string greeting;
-            int gender = Convert.ToInt32(user.Gender);
-            string genderChoice;
-            string name;
+            string username;
 
             if (now >= TimeSpan.FromHours(10) && now <= TimeSpan.FromHours(12))
             {
@@ -128,21 +128,9 @@ namespace Dmitriev_PZ2.Pages
                 greeting = "Здравствуйте";
             }
 
-            switch (gender)
-            {
-                case 1:
-                    genderChoice = "Mr";
-                    break;
-                case 2:
-                    genderChoice = "Mrs";
-                    break;
-                default:
-                    genderChoice = "<Unknown gender>";
-                    break;
-            }
-            name = user.FirstName.ToString();
+            username = user.Login.ToString();
 
-            return $"{greeting}, {genderChoice} {name}";
+            return $"{greeting}, {username}";
         }
 
         // Метод-функция для определения условия нахождения в интервале рабочего времени
@@ -169,7 +157,7 @@ namespace Dmitriev_PZ2.Pages
 
         private void btnEnterGuests_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Client(null, null));
+            NavigationService.Navigate(new GuestPage());
         }
 
         private void btnEnter_Click(object sender, RoutedEventArgs e)
@@ -179,8 +167,6 @@ namespace Dmitriev_PZ2.Pages
             string password = pswbPassword.Password.Trim();
             string hashedPassword = Hash.HashPassword(password);
             bool inWorkingTime = InWorkingTime();
-
-            var db = Helper.GetContext();
 
             var user = db.User.Where(x => x.Login == login && x.Password == hashedPassword).FirstOrDefault(); // после выполнения заменить password на hashedPassword, а во время выполнения - hashedPassword на password
 
@@ -225,19 +211,34 @@ namespace Dmitriev_PZ2.Pages
                 }
             }
         }
+
+        private void tblForgotPassword_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (txtbLogin.Text != "")
+            {
+                string login = txtbLogin.Text;
+                pswbPassword.Clear();
+                NavigationService.Navigate(new EditPassword(login));
+            }
+            else
+            {
+                MessageBox.Show("Введите логин пользователя");
+            }
+        }
+
         private void LoadPage(string _role, User user)
         {
             click = 0;
             switch (_role)
             {
                 case "Клиент":
-                    NavigationService.Navigate(new Client(user, _role));
+                    NavigationService.Navigate(new Client(user));
                     break;
                 case "Администратор":
-                    NavigationService.Navigate(new AdminPage(user, _role));
+                    NavigationService.Navigate(new AdminPage(user));
                     break;
-                case "Пользователь":
-                    NavigationService.Navigate(new UserPage(user, _role));
+                case "Сотрудник":
+                    NavigationService.Navigate(new Client(user));
                     break;
             }
         }

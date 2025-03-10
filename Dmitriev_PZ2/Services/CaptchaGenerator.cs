@@ -8,6 +8,10 @@ namespace Dmitriev_PZ2.Services
         private static readonly Random random = new Random();
         private const string Characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
+        /// <summary>
+        /// Генерирует текст капчи при неверном вводе пароля.
+        /// </summary>
+        /// <param name="length">Длина текста капчи.</param>
         public static string GenerateCaptchaText(int length)
         {
             if (length <= 0)

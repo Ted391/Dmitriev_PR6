@@ -14,21 +14,13 @@ namespace Dmitriev_PZ2.Models
     
     public partial class User
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
-        {
-            this.Employee = new HashSet<Employee>();
-        }
-    
         public int User_ID { get; set; }
         public int UserRole_ID { get; set; }
-        public string FirstName { get; set; }
+        public Nullable<int> Employee_ID { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
-        public string Gender { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee> Employee { get; set; }
+        public virtual Employee Employee { get; set; }
         public virtual UserRole UserRole { get; set; }
     }
 }

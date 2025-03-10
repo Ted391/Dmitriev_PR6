@@ -12,29 +12,18 @@ namespace Dmitriev_PZ2.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Employee
+    public partial class Gender
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Employee()
+        public Gender()
         {
-            this.ObjectInspection = new HashSet<ObjectInspection>();
-            this.User = new HashSet<User>();
+            this.Employee = new HashSet<Employee>();
         }
     
-        public int Employee_ID { get; set; }
-        public int EmployeePost_ID { get; set; }
-        public string LastName { get; set; }
-        public string FirstName { get; set; }
-        public string FatherName { get; set; }
-        public string IdentificationNumber { get; set; }
-        public string Email { get; set; }
         public int Gender_ID { get; set; }
+        public string Name { get; set; }
     
-        public virtual EmployeePost EmployeePost { get; set; }
-        public virtual Gender Gender { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ObjectInspection> ObjectInspection { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> User { get; set; }
+        public virtual ICollection<Employee> Employee { get; set; }
     }
 }

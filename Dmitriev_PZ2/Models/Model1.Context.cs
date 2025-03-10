@@ -30,6 +30,7 @@ namespace Dmitriev_PZ2.Models
         public virtual DbSet<Client> Client { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<EmployeePost> EmployeePost { get; set; }
+        public virtual DbSet<Gender> Gender { get; set; }
         public virtual DbSet<Object> Object { get; set; }
         public virtual DbSet<ObjectInspection> ObjectInspection { get; set; }
         public virtual DbSet<PoliceLeadership> PoliceLeadership { get; set; }

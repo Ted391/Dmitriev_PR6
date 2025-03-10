@@ -1,4 +1,4 @@
-﻿<Page x:Class="Dmitriev_PZ2.Pages.Client"
+﻿<Page x:Class="Dmitriev_PZ2.Pages.GuestPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Dmitriev_PZ2.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Client">
+      Title="GuestPage">
 
     <Grid>
         <ScrollViewer>

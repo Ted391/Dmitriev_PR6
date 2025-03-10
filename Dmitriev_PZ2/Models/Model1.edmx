@@ -40,12 +40,13 @@
             <PropertyRef Name="Employee_ID" />
           </Key>
           <Property Name="Employee_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="User_ID" Type="int" Nullable="false" />
           <Property Name="EmployeePost_ID" Type="int" Nullable="false" />
           <Property Name="LastName" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="FirstName" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="FatherName" Type="varchar" MaxLength="20" />
-          <Property Name="IdentificationNumber" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="IdentificationNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Gender_ID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="EmployeePost">
           <Key>
@@ -53,6 +54,13 @@
           </Key>
           <Property Name="EmployeePost_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="Gender_ID" />
+          </Key>
+          <Property Name="Gender_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="Object">
           <Key>
@@ -145,10 +153,9 @@
           </Key>
           <Property Name="User_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserRole_ID" Type="int" Nullable="false" />
-          <Property Name="FirstName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Employee_ID" Type="int" />
           <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="256" Nullable="false" />
-          <Property Name="Gender" Type="varchar" MaxLength="1" Nullable="false" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -193,15 +200,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Employee_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
+        <Association Name="FK_Employee_Gender">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="User_ID" />
+            <Principal Role="Gender">
+              <PropertyRef Name="Gender_ID" />
             </Principal>
             <Dependent Role="Employee">
-              <PropertyRef Name="User_ID" />
+              <PropertyRef Name="Gender_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -313,6 +320,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_User_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_UserRole">
           <End Role="UserRole" Type="Self.UserRole" Multiplicity="1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -331,6 +350,7 @@
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeePost" EntityType="Self.EmployeePost" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Object" EntityType="Self.Object" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ObjectInspection" EntityType="Self.ObjectInspection" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PoliceLeadership" EntityType="Self.PoliceLeadership" Schema="dbo" store:Type="Tables" />
@@ -354,8 +374,8 @@
             <End Role="EmployeePost" EntitySet="EmployeePost" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
-          <AssociationSet Name="FK_Employee_User" Association="Self.FK_Employee_User">
-            <End Role="User" EntitySet="User" />
+          <AssociationSet Name="FK_Employee_Gender" Association="Self.FK_Employee_Gender">
+            <End Role="Gender" EntitySet="Gender" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
           <AssociationSet Name="FK_Object_Client" Association="Self.FK_Object_Client">
@@ -393,6 +413,10 @@
           <AssociationSet Name="FK_TriggeringAlarm_TriggeringAlarmType" Association="Self.FK_TriggeringAlarm_TriggeringAlarmType">
             <End Role="TriggeringAlarmType" EntitySet="TriggeringAlarmType" />
             <End Role="TriggeringAlarm" EntitySet="TriggeringAlarm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Employee" Association="Self.FK_User_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="User" EntitySet="User" />
           </AssociationSet>
           <AssociationSet Name="FK_User_UserRole" Association="Self.FK_User_UserRole">
             <End Role="UserRole" EntitySet="UserRole" />
@@ -444,15 +468,17 @@
             <PropertyRef Name="Employee_ID" />
           </Key>
           <Property Name="Employee_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="User_ID" Type="Int32" Nullable="false" />
           <Property Name="EmployeePost_ID" Type="Int32" Nullable="false" />
           <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FatherName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="IdentificationNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdentificationNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Gender_ID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="EmployeePost" Relationship="Self.FK_Employee_EmployeePost" FromRole="Employee" ToRole="EmployeePost" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Employee_User" FromRole="Employee" ToRole="User" />
+          <NavigationProperty Name="Gender" Relationship="Self.FK_Employee_Gender" FromRole="Employee" ToRole="Gender" />
           <NavigationProperty Name="ObjectInspection" Relationship="Self.FK_ObjectInspection_Employee" FromRole="Employee" ToRole="ObjectInspection" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_Employee" FromRole="Employee" ToRole="User" />
         </EntityType>
         <EntityType Name="EmployeePost">
           <Key>
@@ -461,6 +487,14 @@
           <Property Name="EmployeePost_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_EmployeePost" FromRole="EmployeePost" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="Gender_ID" />
+          </Key>
+          <Property Name="Gender_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Gender" FromRole="Gender" ToRole="Employee" />
         </EntityType>
         <EntityType Name="Object">
           <Key>
@@ -569,11 +603,10 @@
           </Key>
           <Property Name="User_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserRole_ID" Type="Int32" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Employee_ID" Type="Int32" />
           <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_User" FromRole="User" ToRole="Employee" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_User_Employee" FromRole="User" ToRole="Employee" />
           <NavigationProperty Name="UserRole" Relationship="Self.FK_User_UserRole" FromRole="User" ToRole="UserRole" />
         </EntityType>
         <EntityType Name="UserRole">
@@ -644,15 +677,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Employee_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
+        <Association Name="FK_Employee_Gender">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="User_ID" />
+            <Principal Role="Gender">
+              <PropertyRef Name="Gender_ID" />
             </Principal>
             <Dependent Role="Employee">
-              <PropertyRef Name="User_ID" />
+              <PropertyRef Name="Gender_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -664,6 +697,18 @@
               <PropertyRef Name="Employee_ID" />
             </Principal>
             <Dependent Role="ObjectInspection">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Employee_ID" />
+            </Principal>
+            <Dependent Role="User">
               <PropertyRef Name="Employee_ID" />
             </Dependent>
           </ReferentialConstraint>
@@ -758,6 +803,7 @@
           <EntitySet Name="Client" EntityType="Self.Client" />
           <EntitySet Name="Employee" EntityType="Self.Employee" />
           <EntitySet Name="EmployeePost" EntityType="Self.EmployeePost" />
+          <EntitySet Name="Gender" EntityType="Self.Gender" />
           <EntitySet Name="Object" EntityType="Self.Object" />
           <EntitySet Name="ObjectInspection" EntityType="Self.ObjectInspection" />
           <EntitySet Name="PoliceLeadership" EntityType="Self.PoliceLeadership" />
@@ -789,13 +835,17 @@
             <End Role="EmployeePost" EntitySet="EmployeePost" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
-          <AssociationSet Name="FK_Employee_User" Association="Self.FK_Employee_User">
-            <End Role="User" EntitySet="User" />
+          <AssociationSet Name="FK_Employee_Gender" Association="Self.FK_Employee_Gender">
+            <End Role="Gender" EntitySet="Gender" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
           <AssociationSet Name="FK_ObjectInspection_Employee" Association="Self.FK_ObjectInspection_Employee">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="ObjectInspection" EntitySet="ObjectInspection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Employee" Association="Self.FK_User_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="User" EntitySet="User" />
           </AssociationSet>
           <AssociationSet Name="FK_ResponsiblePerson_Object" Association="Self.FK_ResponsiblePerson_Object">
             <End Role="Object" EntitySet="Object" />
@@ -869,12 +919,13 @@
             <EntityTypeMapping TypeName="ProgMod_PZ4Model.Employee">
               <MappingFragment StoreEntitySet="Employee">
                 <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
-                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
                 <ScalarProperty Name="EmployeePost_ID" ColumnName="EmployeePost_ID" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="FatherName" ColumnName="FatherName" />
                 <ScalarProperty Name="IdentificationNumber" ColumnName="IdentificationNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Gender_ID" ColumnName="Gender_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -882,6 +933,14 @@
             <EntityTypeMapping TypeName="ProgMod_PZ4Model.EmployeePost">
               <MappingFragment StoreEntitySet="EmployeePost">
                 <ScalarProperty Name="EmployeePost_ID" ColumnName="EmployeePost_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gender">
+            <EntityTypeMapping TypeName="ProgMod_PZ4Model.Gender">
+              <MappingFragment StoreEntitySet="Gender">
+                <ScalarProperty Name="Gender_ID" ColumnName="Gender_ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -985,10 +1044,9 @@
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="User_ID" ColumnName="User_ID" />
                 <ScalarProperty Name="UserRole_ID" ColumnName="UserRole_ID" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
                 <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
