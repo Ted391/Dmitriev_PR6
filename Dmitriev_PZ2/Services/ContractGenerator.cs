@@ -11,7 +11,7 @@ namespace Dmitriev_PZ2.Services
     {
         ProgMod_PZ4Entities db = Helper.GetContext();
 
-        string templatePath = "C:\\Users\\teddy\\Desktop\\III_course\\Program_modules_development\\Теоретические_материалы\\ПЗ_14\\TrudovoiDogovor.docx";
+        string templatePath = "C:\\Users\\teddy\\Desktop\\III_course\\Program_modules_development\\Теоретические_материалы\\ПЗ_14 (закрыто)\\TrudovoiDogovor.docx";
         static string day;
         static string month;
         static string year;
@@ -74,7 +74,7 @@ namespace Dmitriev_PZ2.Services
                     document.ReplaceText("{Issued}", companyInfo["issued"]);
                     document.ReplaceText("{EmployerINN}", companyInfo["employerINN"]);
                     
-                    document.SaveAs(System.IO.Path.Combine("C:\\Users\\teddy\\Desktop\\III_course\\Program_modules_development\\Теоретические_материалы\\ПЗ_14", $"TrudovoiDogovor_{employee.LastName}_{employee.FirstName}.docx"));
+                    document.SaveAs(System.IO.Path.Combine("C:\\Users\\teddy\\Desktop\\III_course\\Program_modules_development\\Теоретические_материалы\\ПЗ_14 (закрыто)", $"TrudovoiDogovor_{employee.LastName}_{employee.FirstName}.docx"));
                 }
             }
         }

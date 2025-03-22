@@ -7,6 +7,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Collections.Generic;
 using System.Windows.Documents;
+using Excel = Microsoft.Office.Interop.Excel;
+using System.Runtime.Remoting.Contexts;
 
 namespace Dmitriev_PZ2.Pages
 {
@@ -163,7 +165,49 @@ namespace Dmitriev_PZ2.Pages
                 IDocumentPaginatorSource idpSource = docToPrint;
                 printDialog.PrintDocument(idpSource.DocumentPaginator, "Список клиентов");
             }
+        }
 
+        private void PrintExcelEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            var employees = db.Employee.ToList();
+
+            var excelApp = new Excel.Application();
+            excelApp.Visible = true;
+            excelApp.Workbooks.Add();
+            Excel._Worksheet workSheet = (Excel._Worksheet)excelApp.ActiveSheet;
+
+            workSheet.Cells[1, 1] = "ID";
+            workSheet.Cells[1, 2] = "Должность";
+            workSheet.Cells[1, 3] = "Фамилия";
+            workSheet.Cells[1, 4] = "Имя";
+            workSheet.Cells[1, 5] = "Отчество";
+            workSheet.Cells[1, 6] = "Паспорт";
+            workSheet.Cells[1, 7] = "Email";
+            workSheet.Cells[1, 8] = "Пол";
+
+            int row = 2;
+
+            foreach (var employee in employees)
+            {
+                workSheet.Cells[row, 1] = employee.Employee_ID.ToString();
+                workSheet.Cells[row, 2] = employee.EmployeePost.Name;
+                workSheet.Cells[row, 3] = employee.LastName;
+                workSheet.Cells[row, 4] = employee.FirstName;
+                workSheet.Cells[row, 5] = employee.FatherName;
+                workSheet.Cells[row, 6] = employee.IdentificationNumber;
+                workSheet.Cells[row, 7] = employee.Email;
+                workSheet.Cells[row, 8] = employee.Gender.Name;
+                row++;
+            }
+
+            workSheet.Columns[1].AutoFit();
+            workSheet.Columns[2].AutoFit();
+            workSheet.Columns[3].AutoFit();
+            workSheet.Columns[4].AutoFit();
+            workSheet.Columns[5].AutoFit();
+            workSheet.Columns[6].AutoFit();
+            workSheet.Columns[7].AutoFit();
+            workSheet.Columns[8].AutoFit();
         }
     }
 }
